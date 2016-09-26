@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-xmlrpc",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Node RED wrapper arround XML-RPC implementation.",
   "main": "index.js",
   "scripts": {
