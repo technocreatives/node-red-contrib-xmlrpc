@@ -134,7 +134,7 @@ module.exports = function(RED) {
         return;
       }
       var err = msg.err||null;
-      var result = msg.payload||null;
+      var result = msg.payload;
       msg._xmlrpc.cb(err,result);
     });
   }
