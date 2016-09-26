@@ -1,0 +1,184 @@
+<script type="text/x-red" data-template-name="xmlrpc call">
+    <div class="form-row">
+        <label for="node-input-client"><i class="fa fa-globe"></i> XML-RPC Client</label>
+        <input type="text" id="node-input-client">
+    </div>
+    <div class="form-row">
+        <label for="node-input-method"><i class="fa fa-tasks"></i> Method</label>
+        <input type="text" id="node-input-method">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="xmlrpc call">
+    <p>Performs a method call to an XML-RPC server.</p>
+    <p>Outputs the returned value.</p>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('xmlrpc call',{
+        category: 'function',
+        defaults: {
+            name: {value:""},
+            method: {value:"",required:true},
+            client: {type:"xmlrpc-client", required:true}
+        },
+        color:"#bfd8d8",
+        inputs:1,
+        outputs:1,
+        icon: "xmlrpc.png",
+        label: function() {
+            return this.name||this.method||"xmlrpc";
+        },
+        labelStyle: function() {
+            return this.name?"node_label_italic":"";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="xmlrpc listen">
+    <div class="form-row">
+        <label for="node-input-server"><i class="fa fa-globe"></i> XML-RPC Server</label>
+        <input type="text" id="node-input-server">
+    </div>
+    <div class="form-row">
+        <label for="node-input-method"><i class="fa fa-tasks"></i> Method</label>
+        <input type="text" id="node-input-method">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="xmlrpc listen">
+    <p>Listens to XML-RPC calls.</p>
+    <p>Outputs the params in the method call</p>
+    <p>Flow must terminate in an xmlrpc reponse node for the response to be sent back to the client</p>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('xmlrpc listen',{
+        category: 'input',
+        defaults: {
+            name: {value:""},
+            method: {value:"",required:true},
+            server: {type:"xmlrpc-server", required:true}
+        },
+        color:"#bfd8d8",
+        inputs:0,
+        outputs:1,
+        icon: "xmlrpc.png",
+        label: function() {
+            return this.name||this.method||"xmlrpc";
+        },
+        labelStyle: function() {
+            return this.name?"node_label_italic":"";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="xmlrpc response">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="xmlrpc listen">
+    <p>The messages sent to this node must originate from an xmlrpc listen node.</p>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('xmlrpc response',{
+        category: 'output',
+        defaults: {
+            name: {value:""}
+        },
+        color:"#bfd8d8",
+        inputs:1,
+        outputs:0,
+        icon: "xmlrpc.png",
+        label: function() {
+            return this.name||"xmlrpc";
+        },
+        labelStyle: function() {
+            return this.name?"node_label_italic":"";
+        }
+    });
+</script>
+
+<!-- Server Config -->
+
+<script type="text/x-red" data-template-name="xmlrpc-server">
+
+    <div class="form-row">
+        <label for="node-config-input-name"><i class="fa fa-user"></i> Name</label>
+        <input type="text" id="node-config-input-name">
+    </div>
+
+    <div class="form-row">
+        <label for="node-config-input-host"><i class="fa fa-user"></i> Host</label>
+        <input type="text" id="node-config-input-host">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-port"><i class="fa fa-user"></i> Port</label>
+        <input type="text" id="node-config-input-port">
+    </div>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('xmlrpc-server',{
+        category: 'config',
+        defaults: {
+            name:   { value:"" },
+            host:   { value:"localhost" },
+            port:   { value:"9090" }
+        },
+        label: function() {
+            return this.name || "";
+        }
+    });
+</script>
+
+<!-- Client Config -->
+
+<script type="text/x-red" data-template-name="xmlrpc-client">
+
+    <div class="form-row">
+        <label for="node-config-input-name"><i class="fa fa-user"></i> Name</label>
+        <input type="text" id="node-config-input-name">
+    </div>
+
+    <div class="form-row">
+        <label for="node-config-input-host"><i class="fa fa-user"></i> Host</label>
+        <input type="text" id="node-config-input-host">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-port"><i class="fa fa-user"></i> Port</label>
+        <input type="text" id="node-config-input-port">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-path"><i class="fa fa-user"></i> Path</label>
+        <input type="text" id="node-config-input-path">
+    </div>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('xmlrpc-client',{
+        category: 'config',
+        defaults: {
+            name:   { value:"" },
+            host:   { value:"localhost" },
+            port:   { value:"9090" },
+            path:   { value:"/" }
+        },
+        label: function() {
+            return this.name || "";
+        }
+    });
+</script>
+
